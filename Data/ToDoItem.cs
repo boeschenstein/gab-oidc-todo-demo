@@ -1,0 +1,17 @@
+using System;
+
+namespace Bif4DotNetDemo
+{
+    public class ToDoItem
+    {
+        public int Id { get; set; }
+
+        public string Text { get; set; }
+
+        public DateTime CompleteUntil { get; set; }
+
+        public string Name { get; set; }
+
+        public string Email { get; set; }
+    }
+}
