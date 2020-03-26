@@ -73,6 +73,24 @@ namespace Bif4DotNetDemo
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+            
+            app.UseCsp(config => {
+                config.DefaultSources(cfg => cfg.Self())
+                .ScriptSources(cfg => cfg.Self().UnsafeEval())
+                .StyleSources(cfg => cfg.Self().UnsafeInline())
+                .FontSources(cfg => cfg.Self())
+                .ImageSources(cfg => cfg.Self().CustomSources("data:"))
+                .FrameSources(cfg => cfg.Self().CustomSources("https://bif4-web-identity.azurewebsites.net"))
+                .MediaSources(cfg => cfg.None())
+                .FrameAncestors(cfg => cfg.None());
+
+                if (env.IsDevelopment()) {
+                    // webpack needs websocket but ws:// urls aren't covered under "self" policy
+                    config.ConnectSources(cfg => cfg.CustomSources("*"));
+                } else {
+                    config.ConnectSources(cfg => cfg.Self().CustomSources("https://bif4-web-identity.azurewebsites.net"));
+                }
+            });
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
