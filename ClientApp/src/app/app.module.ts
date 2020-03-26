@@ -6,21 +6,27 @@ import { TodoListComponent } from './todo-list/todo-list.component';
 import { TodoRepository } from './todo-repository.service';
 import { TodoCreateComponent } from './todo-create/todo-create.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoginStatusComponent } from './login-status/login-status.component';
+import { OAuthModule } from 'angular-oauth2-oidc';
+import { AuthInterceptor } from './auth.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     TodoListComponent,
-    TodoCreateComponent
+    TodoCreateComponent,
+    LoginStatusComponent
   ],
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    OAuthModule.forRoot()
   ],
   providers: [
-    TodoRepository
+    TodoRepository,
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

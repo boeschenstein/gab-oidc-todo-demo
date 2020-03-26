@@ -13,5 +13,7 @@ namespace Bif4DotNetDemo
         public string Name { get; set; }
 
         public string Email { get; set; }
+        
+        public string UserSubject { get; set; }
     }
 }

@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -18,6 +20,7 @@ namespace Bif4DotNetDemo
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> CreateToDoItem([FromBody] ToDoItem toDoItem)
         {
             if(!ModelState.IsValid)
@@ -27,6 +30,12 @@ namespace Bif4DotNetDemo
 
             toDoItem.Id = 0;
             dbContext.ToDoItems.Add(toDoItem);
+
+            var claims = User.Claims;
+            toDoItem.UserSubject = claims.FirstOrDefault(c => c.Type == "sub")?.Value;
+            toDoItem.Email = claims.FirstOrDefault(c => c.Type == "email")?.Value;
+            toDoItem.Name = claims.FirstOrDefault(c => c.Type == "name")?.Value;
+
             await dbContext.SaveChangesAsync();
 
             return Ok();
@@ -46,6 +55,7 @@ namespace Bif4DotNetDemo
         }
 
         [HttpDelete("{id}")]
+        [Authorize]
         public async Task<IActionResult> Delete(int id)
         {
             var item = await dbContext.ToDoItems.FindAsync(id);
