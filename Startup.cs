@@ -53,7 +53,7 @@ namespace TodoDemo
                 {
                     options.Authority = "https://login.microsoftonline.com/4925c6ef-421e-417d-a9ce-4b559466d6ff/v2.0";
                     options.TokenValidationParameters.ValidIssuer = "https://sts.windows.net/4925c6ef-421e-417d-a9ce-4b559466d6ff/";
-                    options.Audience = "api://todo";
+                    options.Audience = "api://todos";
                     options.IncludeErrorDetails = true;
                     options.SaveToken = true;
                 });
