@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
-namespace Bif4DotNetDemo
+namespace TodoDemo
 {
     public class Startup
     {
@@ -28,12 +28,12 @@ namespace Bif4DotNetDemo
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
-                configuration.RootPath = "ClientApp/dist/bifdemo";
+                configuration.RootPath = "ClientApp/dist/tododemo";
             });
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BIF ToDos API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ToDos API", Version = "v1" });
             });
 
             services.AddDbContextPool<ToDoDbContext>(builder => {
@@ -51,13 +51,17 @@ namespace Bif4DotNetDemo
                 })
                 .AddJwtBearer(options =>
                 {
-                    options.Authority = "https://bif4-web-identity.azurewebsites.net/";
-                    options.Audience = "ue5-api";
+                    options.Authority = "https://login.microsoftonline.com/4925c6ef-421e-417d-a9ce-4b559466d6ff/v2.0";
+                    options.TokenValidationParameters.ValidIssuer = "https://sts.windows.net/4925c6ef-421e-417d-a9ce-4b559466d6ff/";
+                    options.Audience = "api://todo";
                     options.IncludeErrorDetails = true;
                     options.SaveToken = true;
                 });
 
-            services.AddAuthorization();
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("ToDoManagement", policy => policy.RequireClaim("scp", "ToDo.ReadWrite"));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

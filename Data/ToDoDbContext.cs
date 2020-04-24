@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
-namespace Bif4DotNetDemo
+namespace TodoDemo
 {
     public class ToDoDbContext : DbContext
     {

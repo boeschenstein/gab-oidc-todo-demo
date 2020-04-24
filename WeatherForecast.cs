@@ -1,6 +1,6 @@
 using System;
 
-namespace Bif4DotNetDemo
+namespace TodoDemo
 {
     public class WeatherForecast
     {

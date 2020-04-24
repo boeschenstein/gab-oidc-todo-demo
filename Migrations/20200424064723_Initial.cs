@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Bif4DotNetDemo.Migrations
+namespace ToDoDemo.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -16,7 +16,8 @@ namespace Bif4DotNetDemo.Migrations
                     Text = table.Column<string>(nullable: true),
                     CompleteUntil = table.Column<DateTime>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true)
+                    Email = table.Column<string>(nullable: true),
+                    UserSubject = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

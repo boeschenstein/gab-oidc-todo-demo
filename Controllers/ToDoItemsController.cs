@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace Bif4DotNetDemo
+namespace TodoDemo
 {
     [ApiController]
     [Route("api/todos")]
@@ -20,7 +20,7 @@ namespace Bif4DotNetDemo
         }
 
         [HttpPost]
-        [Authorize]
+        [Authorize(Policy = "ToDoManagement")]
         public async Task<IActionResult> CreateToDoItem([FromBody] ToDoItem toDoItem)
         {
             if(!ModelState.IsValid)
@@ -55,7 +55,7 @@ namespace Bif4DotNetDemo
         }
 
         [HttpDelete("{id}")]
-        [Authorize]
+        [Authorize(Policy = "ToDoManagement")]
         public async Task<IActionResult> Delete(int id)
         {
             var item = await dbContext.ToDoItems.FindAsync(id);

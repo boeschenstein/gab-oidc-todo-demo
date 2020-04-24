@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "bifdemo": {
+    "tododemo": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/bifdemo",
+            "outputPath": "dist/tododemo",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -66,18 +66,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "bifdemo:build"
+            "browserTarget": "tododemo:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "bifdemo:build:production"
+              "browserTarget": "tododemo:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "bifdemo:build"
+            "browserTarget": "tododemo:build"
           }
         },
         "test": {
@@ -114,15 +114,15 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "bifdemo:serve"
+            "devServerTarget": "tododemo:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "bifdemo:serve:production"
+              "devServerTarget": "tododemo:serve:production"
             }
           }
         }
       }
     }},
-  "defaultProject": "bifdemo"
+  "defaultProject": "tododemo"
 }
